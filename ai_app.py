@@ -7,8 +7,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Load CSV, only handle 5k rows for safety/testing
 url = "https://raw.githubusercontent.com/coolport/ia_proj/refs/heads/main/Music%20Info.csv"
-newmil = pd.read_csv(url)
 # newmil = pd.read_csv(~/pyenv/ia_proj/Music Info.csv)
+newmil = pd.read_csv(url)
 newmil_sample = newmil.head(5000)
 
 # PRE-PROCESSING
