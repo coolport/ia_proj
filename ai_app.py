@@ -1,36 +1,32 @@
 import pandas as pd
-import os
-import numpy as np
-import pickle
+
+# import numpy as np
+# import pickle
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-test = os.getcwd()
-# print(test)
 # Load CSV, only handle 5k rows for safety/testing
-newmil = pd.read_csv("/home/aidan/millionsongs_improved/Music Info.csv")
+url = "https://raw.githubusercontent.com/coolport/ia_proj/refs/heads/main/Music%20Info.csv"
+newmil = pd.read_csv(url)
+# newmil = pd.read_csv(~/pyenv/ia_proj/Music Info.csv)
 newmil_sample = newmil.head(5000)
-# print(newmil.head(1))  # print format for reference
 
 # PRE-PROCESSING
-
 newmil_sample.dropna(subset=["tags"], inplace=True)
 newmil_sample["tags"] = newmil_sample["tags"].str.lower()
 # newmil_sample["name"] = newmil_sample["name"].str.lower()
 
 # VECTORIZATION
 # TfidfVectorizer to convert genre tags into a TFIDF matrix
-
 tfidf_vectorizer = TfidfVectorizer(analyzer="word", stop_words="english")
 tfidf_matrix = tfidf_vectorizer.fit_transform(newmil_sample["tags"])
 
 # CALCULATE SIMILARITIES
-
+# eto most of the work tbh, 1 liner from sklearn
 similarity_matrix = cosine_similarity(tfidf_matrix)
 
+
 # RECOMMENDATION FUNCTION
-
-
 def recommend_song(song_name):
     # handle cases
     song_name = song_name.lower()
@@ -65,4 +61,4 @@ while True:
         print(recommendations)
         break
     else:
-        print("Song not found. Please try again.")
+        print("Try again")
